@@ -39,6 +39,8 @@ export const userSlice = createSlice({
     userLogout: (state) => {
       deleteCookie('accessToken');
       state.userData = null;
+      state.isAuthChecked = true;
+      state.isAuthenticated = false;
     },
     clearRegisterError: (state) => {
       state.registerError = undefined;

@@ -1,6 +1,8 @@
 import { setCookie } from './../../utils/cookie';
 import {
   TCodeResonse,
+  TComment,
+  TCreateCommentData,
   TLoginData,
   TRegisterData,
   TUpdateData,
@@ -9,6 +11,7 @@ import {
   getCodeConfirmRegistrationApi,
   getCodeForgotPasswordApi,
   getUserApi,
+  leaveACommentApi,
   loginUserApi,
   registerUserApi,
   updateUserApi,
@@ -63,3 +66,8 @@ export const getCodeForgotPassword = createAsyncThunk(
     return userData;
   }
 );
+
+export const leaveAComment = createAsyncThunk('comments/leaveAComment', async (createCommentData: TCreateCommentData): Promise<TComment> => {
+  const commentData = await leaveACommentApi(createCommentData)
+  return commentData;
+})

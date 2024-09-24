@@ -1,7 +1,10 @@
+import exp from 'constants';
 import { getCookie, setCookie } from './cookie';
 import {
   TAuthResponse,
   TCodeResonse,
+  TComment,
+  TCreateCommentData,
   TLoginData,
   TRefreshResponse,
   TRegisterData,
@@ -51,6 +54,9 @@ const URL = 'http://localhost:5174';
 //     }
 //   }
 // };
+
+export const checkResponse = <T>(res: Response): Promise<T> =>
+  res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 
 export const fetchPostsApi = async () => {
   return await fetch(`${URL}/posts`).then((res) => res);
@@ -145,7 +151,7 @@ export const getCodeForgotPasswordApi = async (): Promise<TCodeResonse> =>
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      authorization: getCookie('accessToken')
+      authorization: getCookie('accessToken'),
     } as HeadersInit,
   })
     .then((res) =>
@@ -153,3 +159,19 @@ export const getCodeForgotPasswordApi = async (): Promise<TCodeResonse> =>
     )
     .then((data) => data)
     .catch((err) => Promise.reject(err));
+
+export const leaveACommentApi = async (
+  createCommentData: TCreateCommentData
+): Promise<TComment> => 
+  await fetch(`${URL}/comments/create`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      authorization: getCookie('accessToken'),
+    } as HeadersInit,
+    body: JSON.stringify(createCommentData),
+  }).then((res) =>
+    checkResponse<TComment>(res)
+  )
+  .then((data) => data)
+  .catch((err) => Promise.reject(err));

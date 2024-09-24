@@ -5,11 +5,13 @@ export type TPost = {
   title: string;
   image: string;
   text: string;
+  comments: TComment[];
 };
 
-export type TPostCard = Omit<TPost, 'text'>;
+export type TPostCard = Omit<TPost, 'text' | 'comments'>;
 
 export type TUser = {
+  id: number;
   username: string;
   city: string;
   email: string;
@@ -50,4 +52,18 @@ export type TUpdateData = {
 export type TCodeResonse = {
   user: TRegisterData;
   code: string;
+}
+
+export type TCreateCommentData = {
+  text: string,
+  userId: number,
+  postId: number
+}
+
+export type TComment = {
+  id: number,
+  text: string,
+  owner: TUser,
+  post: TPost,
+  createdAt: Date
 }
