@@ -34,6 +34,10 @@
   gap: 14px;
 }
 
+.loginButton, .registerButton, .leaveACommentButton {
+  cursor: pointer;
+}
+
 .loginButton {
   background-color: #027700;
   color: #fff;
@@ -43,7 +47,6 @@
   max-inline-size: 300px;
   padding: 16px 28px;
   transition: background-color 0.5s ease;
-  cursor: pointer;
   font-size: 14px;
 }
 
@@ -59,12 +62,19 @@
   font-family: 'Roboto';
   padding: 16px 28px;
   transition: background-color 0.5s ease;
-  cursor: pointer;
   font-size: 14px;
 }
 
 .registerButton:hover {
   background-color: #4a4949;
+}
+
+.leaveACommentButton {
+  fill: #000;
+}
+
+.leaveACommentButton:hover {
+  fill: #4a4949;
 }
 
 .textareaBlock {

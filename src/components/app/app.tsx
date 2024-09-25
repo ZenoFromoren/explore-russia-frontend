@@ -17,6 +17,7 @@ import { UpdateProfile } from '../update-profile/update-profile';
 import { ConfirmEmail } from '../confirm-email/confirm-email';
 import { ForgotPassword } from '../forgot-password/forgot-password';
 import { ResetPassword } from '../reset-password/reset-password';
+import { NotFoundPage } from '../ui/not-found-page/not-found-page';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -88,6 +89,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path='*' element={<NotFoundPage />}/>
       </Routes>
 
       {locationState && (

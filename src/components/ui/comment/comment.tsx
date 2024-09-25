@@ -9,7 +9,6 @@ type TCommentProps = {
 };
 
 export const Comment: FC<TCommentProps> = ({ commentData }) => {
-  console.log(commentData)
   const { text, owner, createdAt } = commentData;
 
   return (
@@ -23,7 +22,7 @@ export const Comment: FC<TCommentProps> = ({ commentData }) => {
             <p className={styles.city}>{owner.city}</p>
           </div>
         </div>
-        <p className={styles.date}>{`${new Date(createdAt).toLocaleDateString()}`}</p>
+        <p className={styles.date}>{`${new Date(createdAt).toLocaleDateString()} ${new Date(createdAt).toLocaleTimeString()}`}</p>
       </div>
       <p className={styles.text}>{text}</p>
     </article>

@@ -7,7 +7,7 @@ import { postsSelectors } from '../../services/slices/postsSlice';
 import { Preloader } from '../ui/preloader/preloader';
 import { userSelectors } from '../../services/slices/userSlice';
 import styles from './post.module.css';
-import { LeaveACommentButton } from '../leave-a-comment-button/leave-a-comment-button';
+import { LeaveACommentButton } from '../ui/leave-a-comment-button/leave-a-comment-button';
 import { Link } from 'react-router-dom';
 import { leaveAComment } from '../../services/thunks/userThunks';
 import { TComment } from '../../utils/types';
@@ -21,11 +21,14 @@ export const Post: FC = () => {
 
   useEffect(() => {
     dispatch(fetchPostById(postId));
-  }, []);
+  }, [leaveAComment]);
 
   const post = useSelector(postsSelectors.selectCurrentPost);
-  const comments = post?.comments;
-  console.log(comments)
+  let comments = post?.comments;
+
+  if (comments) {
+    comments = [...comments!].reverse();
+  }
 
   const isAuth = useSelector(userSelectors.selsectIsAuthenticated);
   const userId = useSelector(userSelectors.selectUserData)!?.id;
@@ -56,6 +59,8 @@ export const Post: FC = () => {
 
   const handleLeaveAComment = () => {
     dispatch(leaveAComment({ text: commentText, userId, postId }));
+    dispatch(fetchPostById(postId));
+    setCommentText('');
   };
 
   if (!post) {
@@ -74,7 +79,7 @@ export const Post: FC = () => {
               onChange={(e) => setCommentText(e.target.value)}
               value={commentText}
             />
-            <LeaveACommentButton onClick={handleLeaveAComment} />
+            <LeaveACommentButton className={styles.leaveACommentButton} onClick={handleLeaveAComment} />
           </div>
         ) : (
           <div className={styles.authBlock}>

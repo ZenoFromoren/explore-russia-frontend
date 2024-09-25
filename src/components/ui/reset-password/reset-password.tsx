@@ -1,6 +1,6 @@
 import { FC, SyntheticEvent } from 'react';
 import styles from './reset-password.module.css';
-import { ShowHidePasswordButton } from '../../show-hide-password-button/show-hide-password-button';
+import { ShowHidePasswordButton } from '../show-hide-password-button/show-hide-password-button';
 
 type TResetPasswordUIProps = {
   password: string;

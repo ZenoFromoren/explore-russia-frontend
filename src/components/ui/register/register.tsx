@@ -1,7 +1,7 @@
 import { FC, SyntheticEvent } from 'react';
 import styles from './register.module.css';
 import { Link } from 'react-router-dom';
-import { ShowHidePasswordButton } from '../../show-hide-password-button/show-hide-password-button';
+import { ShowHidePasswordButton } from '../show-hide-password-button/show-hide-password-button';
 import { Preloader } from '../preloader/preloader';
 
 type TRegisterUIProps = {

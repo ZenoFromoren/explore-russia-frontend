@@ -1,4 +1,3 @@
-import exp from 'constants';
 import { getCookie, setCookie } from './cookie';
 import {
   TAuthResponse,

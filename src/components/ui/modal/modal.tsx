@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './modal.module.css';
 import { TModalProps } from '../../modal/modal';
-import { CloseButton } from '../../closeButton/closeButton';
+import { CloseButton } from '../closeButton/closeButton';
 
 export const ModalUI: FC<TModalProps> = ({ title, onClose, children }) => {
   return (

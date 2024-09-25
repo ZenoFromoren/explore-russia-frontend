@@ -19,7 +19,7 @@ export const LeaveACommentButton: FC<TLeaveACommentButtonProps> = ({
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <circle cx='20' cy='20' r='20' fill='black' />
+      <circle cx='20' cy='20' r='20'/>
       <path d='M21 12L30 19.5L21 27V12Z' fill='white' />
       <line
         x1='10'
