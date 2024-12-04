@@ -1,4 +1,4 @@
-import { PostCard } from '../../post-card/post-card';
+import { PostCard } from '../post-card/post-card';
 import styles from './posts-list.module.css';
 import { Link } from 'react-router-dom';
 import { TPost } from '../../../utils/types';
@@ -8,9 +8,9 @@ type PostsListUIProps = {
   posts: TPost[];
 };
 
-export const PostsListUI: FC<PostsListUIProps> = ({ posts }) => {
-  return (
-    <main className={styles.main}>
+export const PostsListUI: FC<PostsListUIProps> = ({ posts }) => (
+  <main className={styles.main}>
+    <div className={styles.content}>
       <h1 className={styles.title}>Последние публикации</h1>
       <section className={styles.postsList}>
         {posts.map((postData) => {
@@ -29,6 +29,6 @@ export const PostsListUI: FC<PostsListUIProps> = ({ posts }) => {
           );
         })}
       </section>
-    </main>
-  );
-};
+    </div>
+  </main>
+);

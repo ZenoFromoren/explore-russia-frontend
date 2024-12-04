@@ -1,77 +1,32 @@
-import { getCookie, setCookie } from './cookie';
+import { getCookie } from './cookie';
 import {
   TAuthResponse,
   TCodeResonse,
   TComment,
   TCreateCommentData,
+  TEditCommentData,
   TLoginData,
-  TRefreshResponse,
+  TPost,
   TRegisterData,
   TUpdateData,
   TUser,
 } from './types';
 
-const URL = 'http://localhost:5174';
-
-// export const refreshToken = (): Promise<TRefreshResponse> =>
-//   fetch(`${URL}/signin`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json;charset=utf-8',
-//     },
-//     body: JSON.stringify({
-//       token: localStorage.getItem('refreshToken'),
-//     }),
-//   })
-//     .then((res) => {
-//       return res.json();
-//     })
-//     .then((refreshData) => {
-//       localStorage.setItem('refreshToken', refreshData.refreshToken);
-//       setCookie('accessToken', refreshData.accessToken);
-//       return refreshData.json();
-//     });
-
-// export const fetchWithRefresh = async (
-//   url: RequestInfo,
-//   options: RequestInit
-// ) => {
-//   try {
-//     return await fetch(url, options).then((res) => {
-//       return res.json();
-//     });
-//   } catch (err) {
-//     if ((err as { message: string }).message === 'jwt expired') {
-//       const refreshData = await refreshToken();
-//       if (options.headers) {
-//         (options.headers as { [key: string]: string }).authorization =
-//           refreshData.accessToken;
-//       }
-//       return await fetch(url, options).then((res) => res.json());
-//     } else {
-//       return Promise.reject(err);
-//     }
-//   }
-// };
+const URL = import.meta.env.VITE_URL;
 
 export const checkResponse = <T>(res: Response): Promise<T> =>
   res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 
-export const fetchPostsApi = async () => {
-  return await fetch(`${URL}/posts`).then((res) => res);
-};
+export const fetchPostsApi = async (): Promise<TPost[]> =>
+  await fetch(`${URL}/posts`).then((res) => checkResponse<TPost[]>(res));
 
-export const fetchLastPostsApi = async () => {
-  return await fetch(`${URL}/posts/last`).then((res) => res);
-};
+export const fetchLastPostsApi = async (): Promise<TPost[]> =>
+  await fetch(`${URL}/posts/last`).then((res) => checkResponse<TPost[]>(res));
 
-export const fetchPostByIdApi = async (postId: number) => {
-  return await fetch(`${URL}/posts/${postId}`).then((res) => res);
-};
-
-export const searchPostsApi = async (query: string) => {
-  return await fetch(`${URL}/posts/search?query=${query}`).then((res) => res);
-};
+export const fetchPostByIdApi = async (postId: number): Promise<TPost> =>
+  await fetch(`${URL}/posts/${postId}`).then((res) =>
+    checkResponse<TPost>(res)
+  );
 
 export const loginUserApi = async (data: TLoginData): Promise<TAuthResponse> =>
   await fetch(`${URL}/signin`, {
@@ -86,6 +41,14 @@ export const loginUserApi = async (data: TLoginData): Promise<TAuthResponse> =>
     }
     return res.json();
   });
+
+export const loginYandexApi = async (): Promise<TAuthResponse> => {
+  const userData = await fetch(`${URL}/yandex`).then((res) =>
+    checkResponse<TAuthResponse>(res)
+  );
+
+  return userData;
+};
 
 export const registerUserApi = async (
   data: TRegisterData
@@ -113,8 +76,8 @@ export const getUserApi = async (): Promise<TUser> =>
     )
     .then((data) => data);
 
-export const updateUserApi = async (data: TUpdateData): Promise<TUser> => {
-  return await fetch(`${URL}/users/me`, {
+export const updateUserApi = async (data: TUpdateData): Promise<TUser> =>
+  await fetch(`${URL}/users/me`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -127,7 +90,6 @@ export const updateUserApi = async (data: TUpdateData): Promise<TUser> => {
     }
     return res.json();
   });
-};
 
 export const getCodeConfirmRegistrationApi = async (
   registerData: TRegisterData
@@ -159,9 +121,14 @@ export const getCodeForgotPasswordApi = async (): Promise<TCodeResonse> =>
     .then((data) => data)
     .catch((err) => Promise.reject(err));
 
+export const getCommentsApi = async (postId: number) =>
+  await fetch(`${URL}/posts/${postId}/comments`).then((res) =>
+    checkResponse<any>(res)
+  );
+
 export const leaveACommentApi = async (
   createCommentData: TCreateCommentData
-): Promise<TComment> => 
+): Promise<TComment> =>
   await fetch(`${URL}/comments/create`, {
     method: 'POST',
     headers: {
@@ -169,8 +136,24 @@ export const leaveACommentApi = async (
       authorization: getCookie('accessToken'),
     } as HeadersInit,
     body: JSON.stringify(createCommentData),
-  }).then((res) =>
-    checkResponse<TComment>(res)
-  )
-  .then((data) => data)
-  .catch((err) => Promise.reject(err));
+  })
+    .then((res) => checkResponse<TComment>(res))
+    .then((data) => data)
+    .catch((err) => Promise.reject(err));
+
+export const editCommentApi = async (
+  editCommentData: TEditCommentData
+): Promise<TComment> =>
+  await fetch(`${URL}/comments/edit`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      authorization: getCookie('accessToken'),
+    } as HeadersInit,
+    body: JSON.stringify(editCommentData),
+  })
+    .then((res) => checkResponse<TComment>(res))
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => Promise.reject(err));

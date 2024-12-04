@@ -3,6 +3,7 @@ import {
   getCodeForgotPassword,
   getUser,
   loginUser,
+  loginYandex,
   registerUser,
   updateUser,
 } from './../thunks/userThunks';
@@ -67,7 +68,6 @@ export const userSlice = createSlice({
         state.isAuthChecked = true;
         state.isAuthenticated = false;
         state.registerError = action.error.code === '409' ? action.error.message as string : 'Ошибка сервера';
-        console.log(action.error)
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.userData = action.payload.user;
@@ -86,6 +86,21 @@ export const userSlice = createSlice({
         state.loginError = action.error.message as string;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        state.isAuthChecked = true;
+        state.isAuthenticated = true;
+        state.loginError = undefined;
+        state.userData = action.payload;
+      })
+      .addCase(loginYandex.pending, (state) => {
+        state.isAuthenticated = false;
+        state.loginError = undefined;
+      })
+      .addCase(loginYandex.rejected, (state, action) => {
+        state.isAuthChecked = true;
+        state.isAuthenticated = false;
+        state.loginError = action.error.message as string;
+      })
+      .addCase(loginYandex.fulfilled, (state, action) => {
         state.isAuthChecked = true;
         state.isAuthenticated = true;
         state.loginError = undefined;

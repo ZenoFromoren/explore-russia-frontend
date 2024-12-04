@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { TPost } from '../../../utils/types';
 import styles from './search-page.module.css';
-import { Link } from 'react-router-dom';
+import { SearchResult } from '../search-result/search-result';
 
 type TSearchPageUIProps = {
   searchResults: TPost[];
@@ -11,7 +11,7 @@ export const SearchPageUI: FC<TSearchPageUIProps> = ({ searchResults }) => (
   <main className={styles.main}>
     {searchResults.length ? (
       <>
-        <h2 className={styles.searchResultsTitle}>
+        <h2 className={styles.title}>
           Результаты поиска: {searchResults.length}
         </h2>
         <div className={styles.searchResultsList}>
@@ -22,33 +22,20 @@ export const SearchPageUI: FC<TSearchPageUIProps> = ({ searchResults }) => (
             const htmlText = parser.parseFromString(text, 'text/html');
 
             return (
-              <Link to={`/posts/${id}`} className={styles.postLink} key={id}>
-                <article className={styles.searchResult}>
-                  <div className={styles.contentLeft}>
-                    <div className={styles.contentTopLeft}>
-                      <p
-                        className={styles.date}
-                      >{`${new Date(createdAt).toLocaleDateString()}`}</p>
-                      <p className={styles.cityName}>{city}</p>
-                      <p className={styles.title}>{title}</p>
-                    </div>
-                    <p className={styles.basicText}>
-                      {htmlText.querySelector('.basicText')?.textContent}
-                    </p>
-                  </div>
-                  <img
-                    className={styles.image}
-                    src={image}
-                    alt={`Фото статьи ${title}`}
-                  />
-                </article>
-              </Link>
+              <SearchResult
+                id={id}
+                createdAt={createdAt}
+                city={city}
+                title={title}
+                image={image}
+                htmlText={htmlText}
+              />
             );
           })}
         </div>
       </>
     ) : (
-      <h2 className={styles.searchResultsTitle}>Нет результатов</h2>
+      <h2 className={styles.title}>Нет результатов</h2>
     )}
   </main>
 );

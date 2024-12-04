@@ -11,7 +11,7 @@
   background-color: #fff;
   border-radius: 20px;
   inline-size: 557px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.25); */
   font-family: 'Roboto';
 }
 

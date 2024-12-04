@@ -1,30 +1,38 @@
 .header {
   display: flex;
-  padding: 20px 51px 16px;
+  padding-block: 10px;
+  align-self: center;
   justify-content: center;
-  align-items: center;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-  max-block-size: 140px;
+  max-block-size: 80px;
+  inline-size: 100vw;
 }
 
 .content {
   display: flex;
-  gap: 32px;
   white-space: nowrap;
+  max-inline-size: 922px;
+}
+
+.headerLogo {
+  display: flex;
+  align-self: center;
+  margin-block-start: 12px;
 }
 
 .contentLeft {
   display: flex;
   flex-direction: column;
-  padding-block: 20px;
-  gap: 16px;
+  align-self: center;
+  gap: 14px;
   font-family: 'Roboto';
+  margin-inline-start: 20px;
+  inline-size: 46vw;
 }
 
 .description {
-  font-size: 24px;
-  margin: 0;
+  font-size: 20px;
 }
 
 .navMenu {
@@ -38,6 +46,36 @@
 
 .navListItem {
   transition: color 0.3s ease;
+}
+
+.account {
+  transition: color 0.3s ease-in-out;
+}
+
+.navMap {
+  display: flex;
+  position: relative;
+}
+
+.navMap::after, .navMap:hover::after {
+  display: flex;
+  position: absolute;
+  content: 'Скоро';
+  top: 30px;
+  right: -34px;
+  color: #000;
+  inline-size: 105px;
+  block-size: 48px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.navMap:hover::after {
+  opacity: 1;
 }
 
 .navListItem_dropdown {
@@ -58,36 +96,54 @@
 .contentRight {
   display: flex;
   flex-direction: column;
-  align-self: end;
   align-items: end;
+  inline-size: 35vw;
 }
 
 .account {
   display: flex;
-  gap: 7px;
-  margin-block-end: 17px;
-  margin-inline-end: 18px;
+  gap: 6px;
+  margin-block-end: 12px;
+  margin-inline-end: clamp(14px, 2vw, 18px);
+}
+
+.account:hover {
+  color: #b5b5b5;
+}
+
+.proileIcon {
+  margin-block-end: 2px;
 }
 
 .accountText {
-  font-size: 14px;
+  font-size: 12px;
   line-height: normal;
   align-self: end;
+}
+
+.inputBlock {
+  display: flex;
+  position: relative;
+  background-color: #EAEAEA;
+  border-radius: 30px;
+  padding: 12px 24px;
+  border: none;
+  font-family: 'Roboto';
+  align-self: stretch;
 }
 
 .search {
   display: flex;
   gap: 10px;
-  margin-block-end: 7px;
+  align-self: stretch;
 }
 
 .searchBar {
-  inline-size: clamp(214px, 10vw, 265px);
-  max-block-size: 40px;
-  background-color: #eaeaea;
+  background-color: inherit;
   border: none;
-  border-radius: 50px;
-  padding: 12px 26px;
+  inline-size: 90%;
+  padding: 0;
+  font-size: 12px;
 }
 
 .searchBar::placeholder {
@@ -95,19 +151,15 @@
 }
 
 .searchButton {
-  max-inline-size: 90px;
-  max-block-size: 40px;
-  background-color: #000;
-  color: #fff;
-  border-radius: 50px;
-  border: none;
-  font-family: 'Roboto';
-  padding: 12px 25px;
-  transition: background-color 0.5s ease;
+  display: flex;
+  position: absolute;
+  align-self: center;
+  right: 24px;
+  transition: color 0.3s ease-out;
 }
 
 .searchButton:hover {
-  background-color: #4A4949;
+  color: #8e8e8e;
 }
 
 .searchBar:focus-visible,

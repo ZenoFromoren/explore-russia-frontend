@@ -11,7 +11,6 @@
   background-color: #fff;
   border-radius: 20px;
   inline-size: 557px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
 .title {
@@ -57,7 +56,6 @@
 input:-webkit-autofill, input:-webkit-autofill:active, input:-webkit-autofill:active,
 input:-webkit-autofill:focus {
   background-color: inherit;
-  -webkit-box-shadow: 0 0 0 1000px #EAEAEA inset;
   font-size: 16px;
 }
 
@@ -70,16 +68,33 @@ input:-webkit-autofill:focus {
   right: -24px;
 }
 
+.loginBlock {
+  display: flex;
+  margin-block-start: 12px;
+  inline-size: 100%;
+  justify-content: space-between;
+}
+
+.socialNetsBlock {
+  display: flex;
+  gap: 16px;
+  margin-inline: 36px;
+}
+
+.socialNetIcon {
+  max-inline-size: 50px;
+  cursor: pointer;
+}
+
 .loginFormButton {
   background-color: #000;
   color: #fff;
   border-radius: 50px;
   border: none;
   font-family: 'Roboto';
-  max-inline-size: 300px;
+  inline-size: 100%;
   padding: 20px 24px;
   transition: background-color 0.5s ease;
-  margin-block-start: 12px;
   cursor: pointer;
 }
 
@@ -104,6 +119,7 @@ input:-webkit-autofill:focus {
 
 .additionalLink:hover {
   color: #7291FF;
+  cursor: pointer;
 }
 
 .error {

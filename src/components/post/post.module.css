@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding-block: 20px;
 }
 
 .content {
@@ -11,8 +11,10 @@
   gap: 24px;
 }
 
-.authBlock, .textareaBlock {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .authBlock {
@@ -71,6 +73,7 @@
 
 .leaveACommentButton {
   fill: #000;
+  transition: fill 0.2s ease-out;
 }
 
 .leaveACommentButton:hover {
@@ -117,4 +120,10 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+@media (width < 962px) {
+  .comments {
+    margin-inline: 20px;
+  }
 }

@@ -1,8 +1,6 @@
 import { setCookie } from './../../utils/cookie';
 import {
   TCodeResonse,
-  TComment,
-  TCreateCommentData,
   TLoginData,
   TRegisterData,
   TUpdateData,
@@ -11,8 +9,8 @@ import {
   getCodeConfirmRegistrationApi,
   getCodeForgotPasswordApi,
   getUserApi,
-  leaveACommentApi,
   loginUserApi,
+  loginYandexApi,
   registerUserApi,
   updateUserApi,
 } from './../../utils/api';
@@ -31,6 +29,15 @@ export const loginUser = createAsyncThunk(
     return userData.user;
   }
 );
+
+export const loginYandex = createAsyncThunk('user/loginYandex', async () => {
+  const userData = await loginYandexApi();
+
+  setCookie('accessToken', userData.accessToken);
+  // localStorage.setItem('refreshToken', userData.refreshToken);
+
+  return userData.user;
+})
 
 export const registerUser = createAsyncThunk(
   'user/registerUser',
@@ -66,8 +73,3 @@ export const getCodeForgotPassword = createAsyncThunk(
     return userData;
   }
 );
-
-export const leaveAComment = createAsyncThunk('comments/leaveAComment', async (createCommentData: TCreateCommentData): Promise<TComment> => {
-  const commentData = await leaveACommentApi(createCommentData)
-  return commentData;
-})

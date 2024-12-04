@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   align-self: center;
-  padding: 24px 50px;
-  inline-size: 922px;
+  padding-block: 24px;
+  inline-size: clamp(315px, calc(100vw - 50px), 922px);
 }
 
-.searchResultsTitle {
+.title {
   font-size: 24px;
   margin-block-end: 24px;
 }
@@ -15,77 +15,4 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-}
-
-.searchResult {
-  display: flex;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px 25px;
-  max-inline-size: 922px;
-  max-block-size: 230px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
-}
-
-.contentLeft {
-  display: flex;
-  flex-direction: column;
-  margin-inline-end: 72px;
-}
-
-.contentTopLeft {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.contentTopLeft::after {
-  content: '';
-  max-block-size: 1px;
-  max-inline-size: 516px;
-  border-block-end: 1px solid #b5b5b5;
-  margin-block: 14px;
-}
-
-.description {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 20px 25px 16px;
-}
-
-.date,
-.cityName,
-.title {
-  margin: 0;
-}
-
-.title, .basicText {
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.date {
-  font-size: 14px;
-  color: #b5b5b5;
-  line-height: 16px;
-}
-
-.cityName {
-  font-size: 20px;
-  line-height: 23px;
-  font-weight: 700;
-}
-
-.title {
-  max-block-size: 56px;
-}
-
-.image {
-  display: flex;
-  max-block-size: 190px;
-  object-fit: fill;
-  border-radius: inherit;
-  align-self: end;
-  margin-inline-start: auto;
 }

@@ -7,19 +7,14 @@ import { useNavigate } from 'react-router-dom';
 import { defaultAbout } from '../../utils/constants';
 
 export const UpdateProfile: FC = () => {
-  const userData = useSelector(userSelectors.selectUserData);
+  const userData = useSelector(userSelectors.selectUserData)!;
+  const { username, city, about } = userData;
 
-  const user = {
-    username: userData?.username!,
-    city: userData?.city!,
-    about: userData?.about!,
-  };
+  const [newUsername, setNewUserName] = useState<string>(username);
+  const [newCity, setNewCity] = useState<string>(city);
+  const [newAbout, setNewAbout] = useState<string | null>(about);
 
-  const [username, setUserName] = useState(user.username);
-  const [city, setCity] = useState(user.city);
-  const [about, setAbout] = useState<string | null>(user.about);
-
-  const userNameError = !!username && username.length < 2;
+  const userNameError = !!newUsername && newUsername.length < 2;
 
   const dispatch = useDispatch();
 
@@ -27,20 +22,26 @@ export const UpdateProfile: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(updateUser({ username, city, about: `${about?.length ? about : defaultAbout}` }));
+    dispatch(
+      updateUser({
+        username: newUsername,
+        city: newCity,
+        about: `${newAbout?.length ? newAbout : defaultAbout}`,
+      })
+    );
     dispatch(getUser());
     navigate(-1);
   };
 
   return (
     <UpdateProfileUI
-      username={username}
-      setUserName={setUserName}
+      username={newUsername}
+      setUserName={setNewUserName}
       userNameError={userNameError}
-      city={city}
-      setCity={setCity}
-      about={about!}
-      setAbout={setAbout}
+      city={newCity}
+      setCity={setNewCity}
+      about={newAbout!}
+      setAbout={setNewAbout}
       handleSubmit={handleSubmit}
     />
   );
