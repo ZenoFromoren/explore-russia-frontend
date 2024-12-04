@@ -3,7 +3,7 @@ import { PostsListUI } from '../ui/posts-list/post-list';
 import { useDispatch, useSelector } from '../../services/store';
 import { fetchLastPosts } from '../../services/thunks/postsThunks';
 import { postsSelectors } from '../../services/slices/postsSlice';
-import { Preloader } from '../ui/preloader/preloader';
+import { PostListSkeleton } from '../ui/posts-list/post-list-skeleton';
 
 export const PostsList: FC = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const PostsList: FC = () => {
   const isLoading = useSelector(postsSelectors.selectIsLoading);
 
   if (isLoading) {
-    return <Preloader />
+    return <PostListSkeleton />
   }
 
   return (

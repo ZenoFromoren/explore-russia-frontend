@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import { postsSelectors } from '../../services/slices/postsSlice';
 import { SearchPageUI } from '../ui/search-page/search-page';
 import { fetchPosts } from '../../services/thunks/postsThunks';
+import { SearchPageSkeleton } from '../ui/search-page/search-page-skeleton';
 
 export const SearchPage: FC = () => {
   const searchParams = useSearchParams()[0];
@@ -24,6 +25,10 @@ export const SearchPage: FC = () => {
       post.title.toLowerCase().includes(queryLowerCase) ||
       post.text.toLowerCase().includes(queryLowerCase),
   );
+
+  if (!posts.length) {
+    return <SearchPageSkeleton />
+  }
 
   return <SearchPageUI searchResults={filteredPosts} />;
 }

@@ -2,6 +2,9 @@ import { FC, SyntheticEvent } from 'react';
 import styles from './login.module.css';
 import { Link } from 'react-router-dom';
 import { ShowHidePasswordButton } from '../show-hide-password-button/show-hide-password-button';
+import google from '../../../images/googleLogo.svg';
+import yandex from '../../../images/yandexLogo.svg';
+import vk from '../../../images/VKLogo.svg';
 
 type TLoginUIProps = {
   email: string;
@@ -11,6 +14,7 @@ type TLoginUIProps = {
   isPasswordShowed: boolean;
   showHidePassword: () => void;
   loginFormError: string | undefined;
+  handleLoginYandex: () => void;
   handleSubmit: (e: SyntheticEvent) => void;
 };
 
@@ -22,6 +26,7 @@ export const LoginUI: FC<TLoginUIProps> = ({
   isPasswordShowed,
   showHidePassword,
   loginFormError,
+  handleLoginYandex,
   handleSubmit,
 }) => {
   return (
@@ -40,18 +45,45 @@ export const LoginUI: FC<TLoginUIProps> = ({
           </div>
           <div className={styles.inputBlock}>
             <input
-              type={ isPasswordShowed ? 'text' : 'password'}
+              type={isPasswordShowed ? 'text' : 'password'}
               placeholder='Пароль *'
               className={styles.input}
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
-            <ShowHidePasswordButton onClick={showHidePassword} className={styles.showHidePasswordButton}/>
+            <ShowHidePasswordButton
+              onClick={showHidePassword}
+              className={styles.showHidePasswordButton}
+            />
           </div>
           {loginFormError && <p className={styles.error}>{loginFormError}</p>}
-          <button type='submit' className={styles.loginFormButton}>
-            Войти
-          </button>
+          <div className={styles.loginBlock}>
+            <button type='submit' className={styles.loginFormButton}>
+              Войти
+            </button>
+            <div className={styles.socialNetsBlock}>
+              <img
+                src={google}
+                alt='Авторизация через Google'
+                className={styles.socialNetIcon}
+              />
+              <a
+                href={`https://oauth.yandex.com/authorize?response_type=code&client_id=${import.meta.env.VITE_YANDEX_CLIENT_ID}`}
+                target='_blank'
+              >
+                <img
+                  src={yandex}
+                  alt='Авторизация через Yandex'
+                  className={styles.socialNetIcon}
+                />
+              </a>
+              <img
+                src={vk}
+                alt='Авторизация через ВКонтакте'
+                className={styles.socialNetIcon}
+              />
+            </div>
+          </div>
         </form>
         <div className={styles.additionalLinks}>
           <Link to='/register'>

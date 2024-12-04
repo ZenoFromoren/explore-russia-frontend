@@ -18,6 +18,8 @@ import { ConfirmEmail } from '../confirm-email/confirm-email';
 import { ForgotPassword } from '../forgot-password/forgot-password';
 import { ResetPassword } from '../reset-password/reset-password';
 import { NotFoundPage } from '../ui/not-found-page/not-found-page';
+import { YandexOAuth } from '../yandexOAuth/yandexOAuth';
+import { EditComment } from '../editComment/editComment';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -46,6 +48,14 @@ const App = () => {
           element={
             <ProtectedRoute onlyUnAuth>
               <Login />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/yandex/callback'
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <YandexOAuth />
             </ProtectedRoute>
           }
         />
@@ -89,7 +99,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path='*' element={<NotFoundPage />}/>
+        <Route path='*' element={<NotFoundPage />} />
       </Routes>
 
       {locationState && (
@@ -97,9 +107,27 @@ const App = () => {
           <Route
             path='/profile/update'
             element={
-              <Modal title=' Изменить данные профиля' onClose={() => onModalClose()}>
-                <UpdateProfile />
-              </Modal>
+              <ProtectedRoute>
+                <Modal
+                  title='Изменить данные профиля'
+                  onClose={() => onModalClose()}
+                >
+                  <UpdateProfile />
+                </Modal>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/posts/:postId/comments/edit/:id'
+            element={
+              <ProtectedRoute>
+                <Modal
+                  title='Редактирование комментария'
+                  onClose={() => onModalClose()}
+                >
+                  <EditComment />
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>

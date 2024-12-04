@@ -2,8 +2,8 @@ import { FC, SyntheticEvent, useState } from 'react';
 import { ResetPasswordUI } from '../ui/reset-password/reset-password';
 import { useDispatch, useSelector } from '../../services/store';
 import { updateUser } from '../../services/thunks/userThunks';
-import { userActions, userSelectors } from '../../services/slices/userSlice';
-import { replace, useNavigate } from 'react-router-dom';
+import { userSelectors } from '../../services/slices/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const ResetPassword: FC = () => {
   const [password, setPassword] = useState('');

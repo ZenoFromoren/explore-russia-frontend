@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styles from './post-card.module.css'
-import { TPostCard } from '../../utils/types';
+import { TPostCard } from '../../../utils/types';
 
 export const PostCard: FC<TPostCard> = ({ id, createdAt, city, title, image }) => {
   return (

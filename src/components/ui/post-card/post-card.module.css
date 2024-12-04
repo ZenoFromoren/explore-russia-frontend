@@ -7,7 +7,11 @@
   aspect-ratio: 1 / 1;
   border-radius: 10px;
   justify-content: space-between;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s ease;
+}
+
+.postCard:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
 .description {
@@ -42,4 +46,11 @@
   object-fit: fill;
   border-bottom-left-radius: inherit;
   border-bottom-right-radius: inherit;
+}
+
+@media (width < 984px) {
+  .postCard {
+    inline-size: 325px;
+    block-size: 325px;
+  }
 }

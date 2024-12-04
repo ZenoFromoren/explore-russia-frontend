@@ -3,16 +3,19 @@ import styles from './app-header.module.css';
 import logo from '../../../images/logo.svg';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import { SearchButton } from '../search-button/search-button';
 
 type TAppHeaderUIProps = {
   userName: string;
   searchSubmit: (e: SyntheticEvent) => void;
+  query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const AppHeaderUI: FC<TAppHeaderUIProps> = ({
   userName,
   searchSubmit,
+  query,
   setQuery,
 }) => (
   <header className={styles.header}>
@@ -26,13 +29,8 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({
           <Link to='/'>
             <p className={styles.navListItem}>Главная</p>
           </Link>
-          <p className={styles.navListItem}>Карта</p>
-          <p
-            className={clsx(
-              styles.navListItem,
-              styles.navListItem_dropdown
-            )}
-          >
+          <p className={clsx(styles.navListItem, styles.navMap)}>Карта</p>
+          <p className={clsx(styles.navListItem, styles.navListItem_dropdown)}>
             Статьи
             <svg
               width='11'
@@ -46,13 +44,11 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({
                   d='M1 1L5.24264 5.24264'
                   stroke='currentColor'
                   strokeLinecap='round'
-                  className={styles.arrow}
                 />
                 <path
                   d='M9.53564 1L5.293 5.24264'
                   stroke='currentColor'
                   strokeLinecap='round'
-                  className={styles.arrow}
                 />
               </g>
             </svg>
@@ -62,34 +58,33 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({
       <div className={styles.contentRight}>
         <Link to='/profile'>
           <div className={styles.account}>
-            <svg
-              width='15'
-              height='28'
-              viewBox='0 0 15 28'
+            <svg className={styles.profileIcon}
+              width='12'
+              height='22'
+              viewBox='0 0 12 22'
               fill='none'
               xmlns='http://www.w3.org/2000/svg'
             >
               <path
-                d='M1 27V27C2.68787 20.1772 12.4242 20.1585 14.0345 27V27'
-                stroke='black'
+                d='M1 20.7143V20.7143C2.29493 15.4798 9.76458 15.4655 11 20.7143V20.7143'
+                stroke='currentColor'
                 strokeLinecap='round'
               />
-              <circle cx='7.51722' cy='16.7586' r='3.22425' stroke='black' />
+              <circle cx='6.00005' cy='12.8572' r='2.35723' stroke='currentColor' />
             </svg>
             <p className={styles.accountText}>{userName || 'Войти'}</p>
           </div>
         </Link>
-        <form className={styles.search} onSubmit={searchSubmit}>
+        <div className={styles.inputBlock}>
           <input
             className={styles.searchBar}
             type='text'
             placeholder='Например: Иваново'
+            value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button type='submit' className={styles.searchButton}>
-            Поиск
-          </button>
-        </form>
+          <SearchButton onClick={searchSubmit} className={styles.searchButton} />
+        </div>
       </div>
     </div>
   </header>
